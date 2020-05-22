@@ -1,0 +1,28 @@
+{
+  "name": "webpack-template",
+  "version": "1.0.0",
+  "description": "Simple webpack template",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blacknode404/webpack-template.git"
+  },
+  "keywords": [
+    "git",
+    "node",
+    "npm",
+    "webpack"
+  ],
+  "author": "blacknode404 <blacknode404@pm.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blacknode404/webpack-template/issues"
+  },
+  "homepage": "https://github.com/blacknode404/webpack-template#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0"
+  }
+}
