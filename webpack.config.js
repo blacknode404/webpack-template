@@ -34,7 +34,7 @@ module.exports = {
                             importLoaders: 0,
                             localsConvention: 'asIs',
                             onlyLocals: false,
-//                            esModule: 'false',
+                            esModule: false,
                         },
                     },
 //                    {
@@ -50,11 +50,35 @@ module.exports = {
                 ],
             },
 //            {
-//                test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+//                test: /\.(png|jpe?g|gif|svg|eot|ttf|otf|woff|woff2)$/i,
 //                loader: 'url-loader',
 //                options: {
 //                    limit: 8192,
 //            },
+//            {
+//                test: /\.(png|svg|jpe?g|gif)$/i,
+//                use: [
+//                    'file-loader',
+//                ],
+//            },
+            {
+                test: /\.(svg|woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'fonts',
+//                            publicPath: __webpack_public_path__+ outputPath,
+                            postTransformPublicPath: undefined,
+//                            context: 'context',
+                            emitFile: true,
+//                            regExp: /\/(fonts)\/[a-z0-9]+\.svg$/i,
+                            esModule: true,
+                        },
+                    }, 
+                ],
+            },
         ],
     },
 };
