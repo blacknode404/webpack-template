@@ -1,0 +1,10 @@
+@import "utils/fonts.css";
+
+.hello {
+  font-family: 'Cardo';
+  font-style: italic;
+  font-weight: 400;
+    
+    font-size: 26px;
+    color: #884400;
+}

@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import './style.css';
-const fonts = require('./css/fonts.css');
+import './css/main.css';
+import './scss/main.scss';
 
 function component() {
     
