@@ -1,7 +1,9 @@
+const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const path = require('path');
 
 module.exports = {
     mode: 'development',
@@ -18,20 +20,16 @@ module.exports = {
         maxAssetSize: 100000,
     },
     entry: {
-
-//        home: '@mpa/name-app/___home/home.js',
-//        page: '@mpa/name-app/__page/page.js',
-//        about: '@mpa/name-app/_about/about.js',
-
+        home: '@mpa/name-app/___home/home.js',
+        page: '@mpa/name-app/__page/page.js',
+        about: '@mpa/name-app/_about/about.js',
         activebox: '@spa/activebox/common.js',
-//        mongo: '@spa/mongo/common.js',
-
-//        comps: '@comps/comp-name/common.js',
+        mongo: '@spa/mongo/common.js',
+        comps: '@comps/comp-name/common.js',
     },
     output: {
-        filename: '[id]/[contenthash].[name].bundle.js',
+        filename: '[name]/[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        hashDigestLength: 5,
     },
     resolve: {
         alias: {
@@ -52,14 +50,22 @@ module.exports = {
         new CleanWebpackPlugin({
             cleanStaleWebpackAssets: true,
         }),
+        new MiniCssExtractPlugin({
+            filename: '[name]/[name].css',
+        }),
+        new OptimizeCSSAssetsPlugin({
+            
+        }),
     ],
     optimization: {
         minimize: true,
         minimizer: [
-            new TerserPlugin({}),
+            new TerserPlugin({
+                extractComments: true,
+            }),
         ],
-//        splitChunks: {
-//            chunks: 'async',
+        splitChunks: {
+//            chunks: 'all',
 //            minSize: 30000,
 ////            minRemainingSize: 0,
 //            maxSize: 0,
@@ -78,22 +84,18 @@ module.exports = {
 //                    reuseExistingChunk: true,
 //                },
 //            },
-//        },
+        },
     },
 //    hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: [
+                use: [          
                     {
-                        loader: 'style-loader',
+                        loader: MiniCssExtractPlugin.loader,
                         options: {
-                            injectType: 'styleTag',
-                            attributes: {},
-                            insert: 'head',
-//                            base: true,
-                            esModule: false,
+
                         },
                     },
                     {
@@ -128,7 +130,6 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: [
                     // Creates `style` nodes from JS strings
-                    'style-loader',
                     // Translates CSS into CommonJS
                     'css-loader',
                     // Compiles Sass to CSS
