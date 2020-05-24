@@ -3,17 +3,13 @@
 /*! no static exports found */
 
 /*!********************************************!*\
-  !*** ./src/components/comp-name/common.js ***!
+  !*** ./src/components/bank-card/common.js ***!
   \********************************************/
 
 /*!***********************************************!*\
-  !*** ./src/components/comp-name/css/main.css ***!
+  !*** ./src/components/bank-card/css/main.css ***!
   \***********************************************/
 
 /*!*************************************************!*\
-  !*** ./src/components/comp-name/scss/main.scss ***!
+  !*** ./src/components/bank-card/scss/main.scss ***!
   \*************************************************/
-
-/*!*****************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
-  \*****************************************************/
