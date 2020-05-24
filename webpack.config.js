@@ -1,30 +1,86 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 const path = require('path');
 
 module.exports = {
     mode: 'development',
+    stats: {
+      assets: true,
+      colors: true,
+      errors: true,
+      errorDetails: true,
+      hash: true,
+    },
+    performance: {
+        hints: 'warning',
+        maxEntrypointSize: 400000,
+        maxAssetSize: 100000,
+    },
     entry: {
-        //Multi Page Applications:
-        home: '@mpa/name-app/___home/home.js',
-        page: '@mpa/name-app/__page/page.js',
-        about: '@mpa/name-app/_about/about.js',
-        //Single Page Applications:
+
+//        home: '@mpa/name-app/___home/home.js',
+//        page: '@mpa/name-app/__page/page.js',
+//        about: '@mpa/name-app/_about/about.js',
+
         activebox: '@spa/activebox/common.js',
-        mongo: '@spa/mongo/common.js',
-        //Components
-        comps: '@comps/comp-name/common.js'
+//        mongo: '@spa/mongo/common.js',
+
+//        comps: '@comps/comp-name/common.js',
     },
     output: {
-        filename: 'bundle.js',
+        filename: '[id]/[contenthash].[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        hashDigestLength: 5,
     },
     resolve: {
-//        extensions: ['.js', '.json', '.css', '.scss', 'sass' ],
         alias: {
             '@mpa': path.resolve(__dirname, 'src/multi-page-apps'),
             '@spa': path.resolve(__dirname, 'src/single-page-apps'),
             '@comps': path.resolve(__dirname, 'src/components'),
         },
     },
+    externals: {
+        lodash : {
+            commonjs: 'lodash',
+            amd: 'lodash',
+            root: '_',
+        },
+    },
+    target: 'web',
+    plugins: [
+        new CleanWebpackPlugin({
+            cleanStaleWebpackAssets: true,
+        }),
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({}),
+        ],
+//        splitChunks: {
+//            chunks: 'async',
+//            minSize: 30000,
+////            minRemainingSize: 0,
+//            maxSize: 0,
+//            minChunks: 1,
+//            maxAsyncRequests: 6,
+//            maxInitialRequests: 4,
+//            automaticNameDelimiter: '~',
+//            cacheGroups: {
+//                defaultVendors: {
+//                    test: /[\\/]node_modules[\\/]/,
+////                    priority: -10,
+//                },
+//                default: {
+//                    minChunks: 2,
+//                    priority: -20,
+//                    reuseExistingChunk: true,
+//                },
+//            },
+//        },
+    },
+//    hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
     module: {
         rules: [
             {
